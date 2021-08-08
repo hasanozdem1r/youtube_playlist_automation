@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Youtube {
@@ -36,18 +37,20 @@ public class Youtube {
         System.out.println("Successful");
     }
 
-    public String[] get_playlist_links(String playlist_link) throws InterruptedException{
+    public List<String> get_playlist_links(String playlist_link) throws InterruptedException{
+        System.out.println("STARTED");
+        List<String> playlist_links=new ArrayList<String>();
         this.driver.get(playlist_link);
         Thread.sleep(2000);
-        List<WebElement> links_array=this.driver.findElements(By.className("yt-simple-endpoint style-scope ytd-playlist-video-renderer"));
+            List<WebElement> links_array=this.driver.findElements(By.id("video-title"));
         Thread.sleep(2000);
-        int counter=links_array.size();
-        System.out.println(counter);
+
         for (WebElement link : links_array){
-            System.out.println(link.getAttribute("href"));
+            //System.out.println(link.getAttribute("href").toString());
+            playlist_links.add(link.getAttribute("href").toString());
         }
-        System.out.println("successful");
-        return null;
+        System.out.println("FINISHED");
+        return playlist_links;
     }
 }
 
