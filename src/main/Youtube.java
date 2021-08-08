@@ -19,8 +19,12 @@ public class Youtube {
     }
 
     //download mp3
-    public void download_mp3(String link) throws InterruptedException {
-        this.driver.get(link);
+    public void download_mp3(String mp3_link) throws InterruptedException {
+        /*
+        @param mp3_link <String> : link of Youtube's video
+        return void
+        */
+        this.driver.get(mp3_link);
         Thread.sleep(300);
         WebElement link_box=this.driver.findElement(By.id("input"));
         Thread.sleep(300);
@@ -38,8 +42,12 @@ public class Youtube {
     }
 
     public List<String> get_playlist_links(String playlist_link) throws InterruptedException{
+        /*
+        @param playlist_link <String> : link of Youtube's playlist
+        return mp3_links <List<String>> : retrieve all videos links from Youtube then return
+        */
         System.out.println("STARTED");
-        List<String> playlist_links=new ArrayList<String>();
+        List<String> mp3_links=new ArrayList<String>();
         this.driver.get(playlist_link);
         Thread.sleep(2000);
             List<WebElement> links_array=this.driver.findElements(By.id("video-title"));
@@ -47,10 +55,10 @@ public class Youtube {
 
         for (WebElement link : links_array){
             //System.out.println(link.getAttribute("href").toString());
-            playlist_links.add(link.getAttribute("href").toString());
+            mp3_links.add(link.getAttribute("href").toString());
         }
         System.out.println("FINISHED");
-        return playlist_links;
+        return mp3_links;
     }
 }
 
